@@ -46,5 +46,8 @@ notification:
   stage: report
   needs:
     - pages
+  before_script:
+    - apt-get update
+    - apt-get install -y openjdk11-jre
   script:
     - java "-DconfigFile=notifications/telegram.json" -jar allure-notifications-4.6.1.jar
