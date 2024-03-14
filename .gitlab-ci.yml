@@ -41,15 +41,12 @@ pages:
     expire_in: never
     paths:
       - public
+      - allure-report
 
 notification:
   stage: report
   needs: 
-    - run_tests
-  artifacts:
-    untracked: true
-    when: on_success
-    expire_in: 30 days
+    - pages
   image: docker:24.0.5
   script:
     - docker-compose up notification
