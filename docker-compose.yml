@@ -32,4 +32,4 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/usr/workspace
-    command: /bin/sh -c "java '-DconfigFile=notification/telegram.json' -jar allure-notifications-4.6.1.jar"
+    command: /bin/sh -c "java "-DconfigFile=notification/telegram.json" -jar notification/allure-notifications-4.6.1.jar"
