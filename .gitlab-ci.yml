@@ -44,10 +44,12 @@ pages:
 
 notification:
   stage: report
-  needs:
-    - pages
-  image: docker:24.0.5
-  dependencies:
+  needs: 
     - run_tests
+  artifacts:
+    untracked: true
+    when: on_success
+    expire_in: 30 days
+  image: docker:24.0.5
   script:
     - docker-compose up notification
