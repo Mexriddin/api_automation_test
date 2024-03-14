@@ -46,8 +46,6 @@ notification:
   stage: report
   dependencies:
     - run_tests
-  needs:
-    - pages
   image: docker:24.0.5
   script:
     - docker-compose up notification
