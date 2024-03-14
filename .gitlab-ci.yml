@@ -46,6 +46,11 @@ notification:
   stage: report
   needs:
     - pages
-  image: java
+  image:
+    name: adoptopenjdk/openjdk11:latest
+    entrypoint: [ "" ]
+  before_script:
+    - export JAVA_HOME=/opt/java/openjdk
+    - export PATH=$JAVA_HOME/bin:$PATH
   script:
     - java "-DconfigFile=notifications/telegram.json" -jar allure-notifications-4.6.1.jar
