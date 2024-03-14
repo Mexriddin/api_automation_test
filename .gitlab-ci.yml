@@ -47,10 +47,5 @@ notification:
   needs:
     - pages
   image: docker:24.0.5
-  artifacts:
-    when: on_success
-    expire_in: never
-    paths:
-      - allure-report
   script:
     - docker-compose up notification
