@@ -26,7 +26,7 @@ services:
     working_dir: /usr/workspace
 
   notification:
-    image: api-tests:v1
+    image: java:6-jdk
     build:
       context: .
       dockerfile: Dockerfile

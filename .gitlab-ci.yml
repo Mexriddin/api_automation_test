@@ -47,6 +47,6 @@ notification:
   stage: report
   needs: 
     - pages
-  image: docker:24.0.5
+  image: docker:latest
   script:
     - docker-compose up notification
