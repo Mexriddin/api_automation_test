@@ -33,7 +33,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    working_dir: /usr/workspace/notification
+    working_dir: /usr/workspace
     volumes:
       - ./:/usr/workspace
-    command: /bin/sh -c "python notification.py telegram.json"
+    command: /bin/sh -c "cd notification && python notification.py telegram.json"
