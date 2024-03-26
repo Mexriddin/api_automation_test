@@ -27,6 +27,22 @@ class UsersAPI(Helper):
         )
         assert response.status_code == 200, response.json()
         self.attach_response(response=response)
+        self.attach_curl(response=response)
+        model = UserModel(**response.json())
+        return [model, json_data]
+
+    @allure.step("Login a user")
+    def login_user(self, email, password):
+        json_data = {'email': email, 'password': password}
+        self.attach_request_body(json_data)
+        response = requests.post(
+            url=self.endpoints.login_user,
+            headers=self.headers.basic,
+            json=json_data
+        )
+        assert response.status_code == 200, response.json()
+        self.attach_response(response=response)
+        self.attach_curl(response=response)
         model = UserModel(**response.json())
         return model
 
@@ -41,6 +57,7 @@ class UsersAPI(Helper):
         )
         assert response.status_code == 200, response.json()
         self.attach_response(response=response)
+        self.attach_curl(response=response)
         model = UserModel(**response.json())
         return model
 
@@ -52,6 +69,7 @@ class UsersAPI(Helper):
         )
         assert response.status_code == 200, response.json()
         self.attach_response(response=response)
+        self.attach_curl(response=response)
         model = UserModel(**response.json())
         return model
 
@@ -61,13 +79,11 @@ class UsersAPI(Helper):
             url=self.endpoints.delete_user_by_id(uuid=uuid),
             headers=self.headers.basic
         )
+        self.attach_curl(response=response)
         assert response.status_code == 204, response.json()
-        self.attach_response(response=response)
-
-
 
     @allure.step("Get all users")
-    def get_all_users(self, offset, limit):
+    def get_all_users(self, offset=0, limit=10):
         response = requests.get(
             url=self.endpoints.get_users_list,
             headers=self.headers.basic,
@@ -75,5 +91,6 @@ class UsersAPI(Helper):
         )
         assert response.status_code == 200, response.json()
         self.attach_response(response=response)
+        self.attach_curl(response=response)
         model = UsersModel(**response.json())
         return model

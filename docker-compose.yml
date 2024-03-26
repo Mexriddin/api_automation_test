@@ -26,10 +26,11 @@ services:
     working_dir: /usr/workspace
 
   notification:
-    image: java:6-jdk
+    image: api-tests:v1
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - ./:/usr/workspace
+    working_dir: /usr/workspace
     command: /bin/sh -c "java '-DconfigFile=notification/telegram.json' -jar notification/allure-notifications-4.6.1.jar"
