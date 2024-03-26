@@ -6,31 +6,34 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./:/usr/workspace
-    command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results"
-    working_dir: /usr/workspace
     environment:
       STAGE: prod
       SUITE: users
       API_TOKEN: ${API_TOKEN}
+    working_dir: /usr/workspace
+    volumes:
+      - ./:/usr/workspace
+    command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results"
+#    command: /bin/sh -c "pip freeze"
+
 
   report:
     image: api-tests:v1
     build:
       context: .
       dockerfile: Dockerfile
+    working_dir: /usr/workspace
     volumes:
       - ./:/usr/workspace
     command: /bin/sh -c "allure generate allure-results --clean -o allure-report"
-    working_dir: /usr/workspace
+
 
   notification:
     image: api-tests:v1
     build:
       context: .
       dockerfile: Dockerfile
+    working_dir: /usr/workspace/notification
     volumes:
       - ./:/usr/workspace
-    working_dir: /usr/workspace
-    command: /bin/sh -c "java '-DconfigFile=notification/telegram.json' -jar notification/allure-notifications-4.6.1.jar"
+    command: /bin/sh -c "python notification.py telegram.json"

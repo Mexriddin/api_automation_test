@@ -1,5 +1,5 @@
 import allure
-import curl
+import requests_to_curl as curl
 import json
 from allure_commons.types import AttachmentType
 
