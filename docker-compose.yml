@@ -36,4 +36,4 @@ services:
     volumes:
       - ./:/usr/workspace
     working_dir: /usr/workspace/notification
-    command: /bin/sh -c "python notification.py telegram.json"
+    command: /bin/sh -c "python notification.py --config_file=telegram.json"

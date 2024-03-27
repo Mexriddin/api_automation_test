@@ -1,10 +1,16 @@
-import sys
 import requests
 import matplotlib.pyplot as plt
 import json
+import argparse
 
-argumentList = sys.argv[1:]
-config_file = argumentList[0]
+
+
+parser = argparse.ArgumentParser(
+                    prog='Telegram notification allure',
+                    description='Notification allure test result for Telegram'
+                    )
+parser.add_argument('--config_file', default='config.json', help='Configuration file', required=True)
+config_file = parser.parse_args().config_file
 
 
 def duration_readable(duration_ms):
