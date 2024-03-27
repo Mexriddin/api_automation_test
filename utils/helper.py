@@ -19,5 +19,5 @@ class Helper:
 
 
     def attach_curl(self, response):
-        curl_line = curl.parse(response, return_it=True)
+        curl_line = curl.parse(response, return_it=True, print_it=False)
         allure.attach(body=curl_line, name="cURL", attachment_type=AttachmentType.TEXT)
