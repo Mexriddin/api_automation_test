@@ -21,22 +21,22 @@ class TestUsers(BaseTest):
 
     @allure.title("Create a new user")
     def test_create_user(self):
-        user = self.api_users.create_user()
+        user = self.api_users.create_new_user()
         self.api_users.get_user_by_id(user["model"].uuid)
 
     @allure.title("Login a new user")
     def test_login_user(self):
-        user = self.api_users.create_user()
+        user = self.api_users.create_new_user()
         login_user = self.api_users.login_user(user["login_data"]["email"], user["login_data"]["password"])
         assert user["model"] == login_user
 
     @allure.title("Update new user")
     def test_update_user(self):
-        user = self.api_users.create_user()
+        user = self.api_users.create_new_user()
         updated_user = self.api_users.update_user_by_id(user["model"].uuid)
         assert updated_user.nickname != user["model"].nickname
 
     @allure.title("Delete new user")
     def test_delete_user(self):
-        user = self.api_users.create_user()
+        user = self.api_users.create_new_user()
         self.api_users.delete_user_by_id(user["model"].uuid)

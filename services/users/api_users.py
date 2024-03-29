@@ -16,7 +16,7 @@ class UsersAPI:
         self.params = Params()
 
     @allure.step("Create a user")
-    def create_user(self):
+    def create_new_user(self):
         json_data = self.payloads.create_user()
         response = super_requests.post(
             url=self.endpoints.create_user,

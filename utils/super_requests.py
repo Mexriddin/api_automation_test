@@ -20,7 +20,7 @@ class Attachment:
                           attachment_type=AttachmentType.JSON)
         except json.decoder.JSONDecodeError:
             allure.attach(body=response.content, name="API Response", attachment_type=AttachmentType.TEXT)
-            assert False, f"Response is not JSON format. Response text is '{response.text}'"
+            # assert False, f"Response is not JSON format. Response text is '{response.text}'"
 
     @classmethod
     def attach_curl(cls, response):

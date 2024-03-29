@@ -3,14 +3,13 @@ from typing import List
 from services.commons.model import Meta
 
 
-class UserModel(BaseModel):
-    email: str
-    name: str
-    nickname: str
+
+class GameModel(BaseModel):
+    title: str
     uuid: str
 
 
-    @field_validator("email", "name", "nickname", "uuid")
+    @field_validator("title", "uuid")
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")
@@ -18,6 +17,7 @@ class UserModel(BaseModel):
             return value
 
 
-class UsersModel(BaseModel):
-    items: List[UserModel]
+class GamesModel(BaseModel):
+    items: List[GameModel]
     meta: Meta
+
