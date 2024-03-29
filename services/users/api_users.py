@@ -3,7 +3,7 @@ from services.users.endpoints import Endpoints
 from services.users.params import Params
 from config.headers import Headers
 from services.users.models.user_model import UserModel, UsersModel
-from utils.helper import SuperRequests as super_requests
+from utils.super_requests import SuperRequests as super_requests
 import allure
 
 
