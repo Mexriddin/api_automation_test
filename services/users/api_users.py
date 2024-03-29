@@ -1,14 +1,13 @@
-from utils.helper import Helper
 from services.users.payloads import Payloads
 from services.users.endpoints import Endpoints
 from services.users.params import Params
-from services.users.models.user_model import UserModel, UsersModel
 from config.headers import Headers
-import requests
+from services.users.models.user_model import UserModel, UsersModel
+from utils.helper import SuperRequests as super_requests
 import allure
 
 
-class UsersAPI(Helper):
+class UsersAPI:
     def __init__(self):
         super().__init__()
         self.payloads = Payloads()
@@ -19,78 +18,64 @@ class UsersAPI(Helper):
     @allure.step("Create a user")
     def create_user(self):
         json_data = self.payloads.create_user()
-        self.attach_request_body(json_data)
-        response = requests.post(
+        response = super_requests.post(
             url=self.endpoints.create_user,
             headers=self.headers.basic,
-            json=json_data
+            json_data=json_data
         )
         assert response.status_code == 200, response.json()
-        self.attach_response(response=response)
-        self.attach_curl(response=response)
         model = UserModel(**response.json())
-        return [model, json_data]
+        return {"model": model, "login_data": json_data}
 
     @allure.step("Login a user")
     def login_user(self, email, password):
         json_data = {'email': email, 'password': password}
-        self.attach_request_body(json_data)
-        response = requests.post(
+        response = super_requests.post(
             url=self.endpoints.login_user,
             headers=self.headers.basic,
-            json=json_data
+            json_data=json_data
         )
         assert response.status_code == 200, response.json()
-        self.attach_response(response=response)
-        self.attach_curl(response=response)
         model = UserModel(**response.json())
         return model
 
     @allure.step("Update user by ID")
     def update_user_by_id(self, uuid):
         json_data = self.payloads.create_user()
-        self.attach_request_body(request_body=json_data)
-        response = requests.patch(
+        response = super_requests.patch(
             url=self.endpoints.update_user_by_id(uuid=uuid),
             headers=self.headers.basic,
-            json=json_data
+            json_data=json_data
         )
         assert response.status_code == 200, response.json()
-        self.attach_response(response=response)
-        self.attach_curl(response=response)
         model = UserModel(**response.json())
         return model
 
     @allure.step("Get user by ID")
     def get_user_by_id(self, uuid):
-        response = requests.get(
+        response = super_requests.get(
             url=self.endpoints.get_user_by_id(uuid=uuid),
             headers=self.headers.basic
         )
         assert response.status_code == 200, response.json()
-        self.attach_response(response=response)
-        self.attach_curl(response=response)
         model = UserModel(**response.json())
         return model
 
     @allure.step("Delete user by ID")
     def delete_user_by_id(self, uuid):
-        response = requests.delete(
+        response = super_requests.delete(
             url=self.endpoints.delete_user_by_id(uuid=uuid),
             headers=self.headers.basic
         )
-        self.attach_curl(response=response)
         assert response.status_code == 204, response.json()
 
     @allure.step("Get all users")
     def get_all_users(self, offset=0, limit=10):
-        response = requests.get(
+        response = super_requests.get(
             url=self.endpoints.get_users_list,
             headers=self.headers.basic,
             params=self.params.user_list_params(offset=offset, limit=limit)
         )
         assert response.status_code == 200, response.json()
-        self.attach_response(response=response)
-        self.attach_curl(response=response)
         model = UsersModel(**response.json())
         return model

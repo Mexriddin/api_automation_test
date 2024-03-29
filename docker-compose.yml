@@ -14,7 +14,7 @@ services:
     volumes:
       - ./:/usr/workspace
     command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results"
-#    command: /bin/sh -c "pip freeze"
+
 
 
   report:
