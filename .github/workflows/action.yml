@@ -51,6 +51,8 @@ jobs:
       - name: Prepare public directory
         run: |
           mkdir public
+          pwd allure-report
+          ls allure-report
           cp -r allure-report/* public
 
       - name: Upload artifacts
