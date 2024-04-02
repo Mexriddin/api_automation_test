@@ -3,6 +3,7 @@ from services.users.endpoints import Endpoints
 from services.users.params import Params
 from config.headers import Headers
 from services.users.models.user_model import UserModel, UsersModel
+from services.commons.model import ErrorModel
 from utils.super_requests import SuperRequests as super_requests
 import allure
 
@@ -78,4 +79,45 @@ class UsersAPI:
         )
         assert response.status_code == 200, response.json()
         model = UsersModel(**response.json())
+        return model
+
+    @allure.step("Get all user without authentication")
+    def get_all_users_without_token(self):
+        response = super_requests.get(
+            url=self.endpoints.get_users_list,
+            params=self.params.user_list_params(offset=0, limit=10)
+        )
+        assert response.status_code == 401, response.json()
+        model = ErrorModel(**response.json())
+        return model
+
+    @allure.step("Get user by invalid uuid {uuid}")
+    def get_user_by_invalid_uuid(self, uuid):
+        response = super_requests.get(
+            url=self.endpoints.get_user_by_id(uuid=uuid),
+            headers=self.headers.basic
+        )
+        assert response.status_code == 400, response.json()
+        model = ErrorModel(**response.json())
+        return model
+
+    @allure.step("Get not exist user by uuid:{uuid}")
+    def get_not_exist_user(self, uuid):
+        response = super_requests.get(
+            url=self.endpoints.get_user_by_id(uuid=uuid),
+            headers=self.headers.basic
+        )
+        assert response.status_code == 404, response.json()
+        model = ErrorModel(**response.json())
+        return model
+
+    @allure.step("Create user with exist {field}:{value}")
+    def create_user_exist(self, field, value):
+        response = super_requests.post(
+            url=self.endpoints.create_user,
+            headers=self.headers.basic,
+            json_data=self.payloads.create_user(field, value)
+        )
+        assert response.status_code == 409, response.json()
+        model = ErrorModel(**response.json())
         return model
