@@ -87,6 +87,6 @@ class TestUsersNegative(BaseTest):
     @allure.title("Delete not exist user")
     def test_delete_not_exist_user(self):
         user = self.api_users.create_new_user()
-        self.api_users.delete_user_by_id(user["model"].uuid)
-        error = self.api_users.delete_not_exist_user(user["model"].uuid)
-        self.common.assert_error_msg(error, 404, f"Could not find user with UUID {user["model"].uuid}")
+        self.api_users.delete_user_by_id(user['model'].uuid)
+        error = self.api_users.delete_not_exist_user(user['model'].uuid)
+        self.common.assert_error_msg(error, 404, f"Could not find user with UUID {user['model'].uuid}")

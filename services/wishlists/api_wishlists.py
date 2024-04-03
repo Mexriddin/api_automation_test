@@ -13,7 +13,7 @@ class WishlistAPI:
         self.endpoints = Endpoints()
         self.headers = Headers()
 
-    @allure.step("Get wishlists by UUID")
+    @allure.step("Get wishlists by UUID: {uuid}")
     def get_wishlists_by_uuid(self, uuid):
         response = super_requests.get(
             url=self.endpoints.get_wishlists(uuid=uuid),
@@ -24,19 +24,19 @@ class WishlistAPI:
         return model
 
     @allure.step("Add item to user wishlist")
-    def add_item_to_user_wishlist(self, uuid):
+    def add_item_to_user_wishlist(self, user_uuid, item_uuid):
         response = super_requests.post(
-            url=self.endpoints.add_item_to_wishlists(uuid),
+            url=self.endpoints.add_item_to_wishlists(user_uuid),
             headers=self.headers.basic,
-            json_data=self.payloads.item_uuid(uuid)
+            json_data=self.payloads.item_uuid(item_uuid)
         )
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 204, response.json()
 
     @allure.step("Remove item from user wishlist")
-    def remove_item_from_user_wishlist(self, uuid):
+    def remove_item_from_user_wishlist(self, user_uuid, item_uuid):
         response = super_requests.post(
-            url=self.endpoints.remove_item_to_wishlists(uuid),
+            url=self.endpoints.remove_item_to_wishlists(user_uuid),
             headers=self.headers.basic,
-            json_data=self.payloads.item_uuid(uuid)
+            json_data=self.payloads.item_uuid(item_uuid)
         )
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 204, response.json()

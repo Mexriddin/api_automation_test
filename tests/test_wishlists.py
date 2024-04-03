@@ -9,9 +9,26 @@ from config.base_test import BaseTest
 @pytest.mark.wishlist
 class TestWishlists(BaseTest):
 
-    @allure.title("Get user's all wishlists")
+    @allure.title("Get all wishlist new user")
     def test_get_all_wishlists_new_user(self):
         user = self.api_users.create_new_user()
-        wishlists = self.api_wishlists.get_wishlists_by_uuid("1990ecdd-4d3d-4de2-91b9-d45d794c82bc")
-        assert len(wishlists.items) != 0
+        wishlists = self.api_wishlists.get_wishlists_by_uuid(user['model'].uuid)
+        assert len(wishlists.items) == 0
 
+    @allure.title("Add item to users wishlist")
+    def test_add_item_to_user_wishlist(self):
+        user = self.api_users.create_new_user()
+        games = self.api_games.get_list_all_games()
+        self.api_wishlists.add_item_to_user_wishlist(user_uuid=user['model'].uuid, item_uuid=games.items[0].uuid)
+        wishlists = self.api_wishlists.get_wishlists_by_uuid(user['model'].uuid)
+        assert len(wishlists.items) > 0
+
+
+    @allure.title("Remove item from users wishlist")
+    def test_remove_item_from_user_wishlist(self):
+        user = self.api_users.create_new_user()
+        games = self.api_games.get_list_all_games()
+        self.api_wishlists.add_item_to_user_wishlist(user_uuid=user['model'].uuid, item_uuid=games.items[0].uuid)
+        self.api_wishlists.remove_item_from_user_wishlist(user_uuid=user['model'].uuid, item_uuid=games.items[0].uuid)
+        wishlists = self.api_wishlists.get_wishlists_by_uuid(user['model'].uuid)
+        assert len(wishlists.items) == 0

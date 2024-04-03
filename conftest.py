@@ -3,7 +3,7 @@ import pytest
 from config.conf import HOST, API_TOKEN
 
 
-@pytest.fixture(autouse=True, scope="session")
+@pytest.fixture(autouse=True, scope="class")
 def init_environment():
     response = requests.post(
         url=f"{HOST}/setup",
