@@ -3,7 +3,7 @@ stages:
   - report
 
 variables:
-  STAGE: qa
+  STAGE: prod
 
 services:
   - docker:24.0.5-dind
