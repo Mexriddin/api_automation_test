@@ -51,7 +51,7 @@ jobs:
       - name: Prepare public directory
         run: |
           mkdir public
-          pwd allure-report
+          cd ..
           ls allure-report
           cp -r allure-report/* public
 
