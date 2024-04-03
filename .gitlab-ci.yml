@@ -3,7 +3,7 @@ stages:
   - report
 
 variables:
-  STAGE: prod
+  STAGE: qa
 
 services:
   - docker:24.0.5-dind
@@ -18,13 +18,13 @@ run-tests:
             - wishlist-api-tests
     when: manual
     image: docker:24.0.5
-#    before_script:
-#      - apk add curl jq
-#      - ARTIFACTS_CHECK_URL="https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages&private_token=$PRIVATE_TOKEN"
-#      - curl -k --location --output artifacts.zip $ARTIFACTS_CHECK_URL
-#      - unzip artifacts.zip
-#      - chmod -R 777 public
-#      - mkdir -p allure-results && cp -r public/history allure-results
+    before_script:
+      - apk add curl jq
+      - ARTIFACTS_CHECK_URL="https://$CI_SERVER_HOST/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages&private_token=$PRIVATE_TOKEN"
+      - curl -k --location --output artifacts.zip $ARTIFACTS_CHECK_URL
+      - unzip artifacts.zip
+      - chmod -R 777 public
+      - mkdir -p allure-results && cp -r public/history allure-results
     script:
         - docker-compose up $SUITE || true
     artifacts:

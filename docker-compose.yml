@@ -22,7 +22,7 @@ services:
       dockerfile: Dockerfile
     environment:
       STAGE: prod
-      SUITE: users
+      SUITE: games
       API_TOKEN: ${API_TOKEN}
     working_dir: /usr/workspace
     volumes:
@@ -36,7 +36,7 @@ services:
       dockerfile: Dockerfile
     environment:
       STAGE: prod
-      SUITE: users
+      SUITE: wishlists
       API_TOKEN: ${API_TOKEN}
     working_dir: /usr/workspace
     volumes:
