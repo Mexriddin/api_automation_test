@@ -29,6 +29,7 @@ class TestWishlists(BaseTest):
         user = self.api_users.create_new_user()
         games = self.api_games.get_list_all_games()
         self.api_wishlists.add_item_to_user_wishlist(user_uuid=user['model'].uuid, item_uuid=games.items[0].uuid)
-        self.api_wishlists.remove_item_from_user_wishlist(user_uuid=user['model'].uuid, item_uuid=games.items[0].uuid)
+        wishlists = self.api_wishlists.get_wishlists_by_uuid(user['model'].uuid)
+        self.api_wishlists.remove_item_from_user_wishlist(user_uuid=wishlists.user_uuid, item_uuid=wishlists.items[0].uuid)
         wishlists = self.api_wishlists.get_wishlists_by_uuid(user['model'].uuid)
         assert len(wishlists.items) == 0

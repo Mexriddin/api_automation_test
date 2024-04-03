@@ -21,6 +21,6 @@ class TestGames(BaseTest):
 
     @allure.title("Get a game")
     def test_get_game_by_uuid(self):
-        user = self.api_users.create_new_user()
-        game = self.api_games.get_game_by_uuid("1990ecdd-4d3d-4de2-91b9-d45d794c82bc")
-        assert game.uuid == "1990ecdd-4d3d-4de2-91b9-d45d794c82bc"
+        games = self.api_games.get_list_all_games()
+        game = self.api_games.get_game_by_uuid(games.items[0].uuid)
+        assert game.uuid == games.items[0].uuid
