@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  api-tests:
+  users-api-tests:
     image: api-tests:v1
     build:
       context: .
@@ -13,9 +13,35 @@ services:
     working_dir: /usr/workspace
     volumes:
       - ./:/usr/workspace
-    command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results"
+    command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results ./tests/test_users.py"
 
+  games-api-tests:
+    image: api-tests:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      STAGE: prod
+      SUITE: users
+      API_TOKEN: ${API_TOKEN}
+    working_dir: /usr/workspace
+    volumes:
+      - ./:/usr/workspace
+    command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results ./tests/test_games.py"
 
+  wishlist-api-tests:
+    image: api-tests:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      STAGE: prod
+      SUITE: users
+      API_TOKEN: ${API_TOKEN}
+    working_dir: /usr/workspace
+    volumes:
+      - ./:/usr/workspace
+    command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results ./tests/test_wishlists.py"
 
   report:
     image: api-tests:v1
