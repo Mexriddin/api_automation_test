@@ -132,3 +132,13 @@ class UsersAPI:
         assert response.status_code == 400, response.json()
         model = ErrorModel(**response.json())
         return model
+
+    @allure.step("Delete not exist user by uuid:{uuid}")
+    def delete_not_exist_user(self, uuid):
+        response = super_requests.get(
+            url=self.endpoints.get_user_by_id(uuid=uuid),
+            headers=self.headers.basic
+        )
+        assert response.status_code == 404, response.json()
+        model = ErrorModel(**response.json())
+        return model
