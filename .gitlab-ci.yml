@@ -16,7 +16,6 @@ run-tests:
             - users-api-tests
             - games-api-tests
             - wishlist-api-tests
-    when: manual
     image: docker:24.0.5
     before_script:
       - apk add curl jq
