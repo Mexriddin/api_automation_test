@@ -27,6 +27,11 @@ run-tests:
 #      - mkdir -p allure-results && cp -r public/history allure-results
     script:
         - docker-compose up $SUITE || true
+    artifacts:
+      paths:
+        - allure-results
+      when: on_success
+      expire_in: 10 days
 
 allure-report:
   stage: report
