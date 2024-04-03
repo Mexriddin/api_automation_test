@@ -18,7 +18,7 @@ class UsersAPI:
 
     @allure.step("Create a user")
     def create_new_user(self):
-        json_data = self.payloads.create_user()
+        json_data = self.payloads.create_new_user()
         response = super_requests.post(
             url=self.endpoints.create_user,
             headers=self.headers.basic,
@@ -42,7 +42,7 @@ class UsersAPI:
 
     @allure.step("Update user by ID")
     def update_user_by_id(self, uuid):
-        json_data = self.payloads.create_user()
+        json_data = self.payloads.create_new_user()
         response = super_requests.patch(
             url=self.endpoints.update_user_by_id(uuid=uuid),
             headers=self.headers.basic,
@@ -116,8 +116,19 @@ class UsersAPI:
         response = super_requests.post(
             url=self.endpoints.create_user,
             headers=self.headers.basic,
-            json_data=self.payloads.create_user(field, value)
+            json_data=self.payloads.create_exist_user(field, value)
         )
         assert response.status_code == 409, response.json()
+        model = ErrorModel(**response.json())
+        return model
+
+    @allure.step("Create user without filed: {field}")
+    def login_user_without_filed(self, login_data, field):
+        response = super_requests.post(
+            url=self.endpoints.create_user,
+            headers=self.headers.basic,
+            json_data=self.payloads.login_without_field(login_data, field)
+        )
+        assert response.status_code == 400, response.json()
         model = ErrorModel(**response.json())
         return model

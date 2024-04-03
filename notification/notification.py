@@ -24,7 +24,7 @@ def duration_readable(duration_ms):
 with open("../allure-report/widgets/summary.json", "r") as summary_f:
     summary_data = json.load(summary_f)
 
-    # Данные для построения
+    # Datas for make diagrams
     labels_dict = {'passed': "green", 'failed': "red", "broken": "yellow", "skipped": "grey", "unknown": "purple"}
     labels = []
     colors = []
@@ -37,7 +37,7 @@ with open("../allure-report/widgets/summary.json", "r") as summary_f:
 
     sizes = [(summary_data['statistic'][i] / summary_data['statistic']['total']) * 100 for i in labels]
 
-    # Построение диаграммы
+    # Make diagrams
     fig, ax = plt.subplots()
     ax.pie(sizes, explode=None, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
     ax.set_position([0.1, 0.2, 0.5, 0.75])

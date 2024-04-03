@@ -49,19 +49,20 @@ class TestUsersPositive(BaseTest):
 @pytest.mark.negative
 @pytest.mark.users
 class TestUsersNegative(BaseTest):
-    @allure.title("Test get list user without authentication")
+    @allure.title("Get list user without authentication")
     def test_get_list_user_without_token(self):
         error = self.api_users.get_all_users_without_token()
         self.common.assert_error_msg(error, 401, "security requirements failed: authentication failed")
 
-    @allure.title("Test get user with {invalid} uuid")
+    @allure.title("Get user with {invalid} uuid")
     @pytest.mark.parametrize("invalid_uuid, invalid", [("cb8e4476-e987-4990-b2a6-a2584b0079d", "minimum"),
                                                        ("cb8e4476-e987-4990-b2a6-a2584b0079d95", "maximum")])
     def test_get_user_with_invalid_uuid(self, invalid_uuid, invalid):
         error = self.api_users.get_user_by_invalid_uuid(invalid_uuid)
-        self.common.assert_error_msg(error, 400, f'parameter \"uuid\" in path has an error: {invalid} string length is 36')
+        self.common.assert_error_msg(error, 400, f'parameter \"uuid\" in path has an error: '
+                                                 f'{invalid} string length is 36')
 
-    @allure.title("Test get not exist user")
+    @allure.title("Get not exist user")
     def test_get_not_exist_user(self):
         user = self.api_users.create_new_user()["model"]
         self.api_users.delete_user_by_id(user.uuid)
@@ -69,9 +70,18 @@ class TestUsersNegative(BaseTest):
         self.common.assert_error_msg(error, 404, f"Could not find user with UUID {user.uuid}")
 
 
-    @allure.title("Test create user with exist {field}")
+    @allure.title("Create user with exist {field}")
     @pytest.mark.parametrize("field", ["email", "nickname"])
     def test_create_exist_user(self, field):
         user = self.api_users.create_new_user()
         error = self.api_users.create_user_exist(field, user["login_data"][field])
         self.common.assert_error_msg(error, 409, f"User {field} already exists: {user['login_data'][field]}")
+
+    @allure.title("Login without field: {field}")
+    @pytest.mark.parametrize("field", ["email", "password"])
+    def test_login_with_invalid_field(self, field):
+        user = self.api_users.create_new_user()
+        error = self.api_users.login_user_without_filed(user["login_data"], field)
+        self.common.assert_error_msg(error, 400, f"Error at \"/{field}\"")
+
+
