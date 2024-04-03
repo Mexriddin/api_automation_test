@@ -8,7 +8,7 @@ variables:
 services:
   - docker:24.0.5-dind
 
-run_user_tests:
+run-tests:
     stage: tests
     parallel:
       matrix:
@@ -30,6 +30,8 @@ run_user_tests:
 
 allure-report:
   stage: report
+  needs:
+    - run-tests
   image: docker:24.0.5
   script:
     - docker-compose up report
