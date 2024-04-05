@@ -13,9 +13,9 @@ run-tests:
     parallel:
       matrix:
         - SUITE:
-            - users-api-tests
-            - games-api-tests
-            - wishlist-api-tests
+            - users
+            - games
+            - wishlists
     image: docker:24.0.5
     before_script:
       - apk add curl jq
@@ -25,7 +25,7 @@ run-tests:
       - chmod -R 777 public
       - mkdir -p allure-results && cp -r public/history allure-results
     script:
-        - docker-compose up $SUITE || true
+        - SUITE=$SUITE docker-compose up || true
     artifacts:
       paths:
         - allure-results
