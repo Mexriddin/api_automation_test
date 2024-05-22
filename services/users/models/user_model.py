@@ -19,5 +19,6 @@ class UserModel(BaseModel):
 
 
 class UsersModel(BaseModel):
-    items: List[UserModel]
     meta: Meta
+    users: List[UserModel]
+

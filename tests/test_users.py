@@ -13,12 +13,12 @@ class TestUsersPositive(BaseTest):
     @allure.title("List all users with default params")
     def test_get_all_users_with_default_params(self):
         users = self.api_users.get_all_users()
-        assert len(users.items) == 10
+        assert len(users.users) == 10
 
     @allure.title("Get all users with manual params")
     def test_get_all_users_with_params(self):
         users = self.api_users.get_all_users(0, 5)
-        assert len(users.items) == 5
+        assert len(users.users) == 5
 
     @allure.title("Create a new user")
     def test_create_user(self):
@@ -59,7 +59,7 @@ class TestUsersNegative(BaseTest):
                                                        ("cb8e4476-e987-4990-b2a6-a2584b0079d95", "maximum")])
     def test_get_user_with_invalid_uuid(self, invalid_uuid, invalid):
         error = self.api_users.get_user_by_invalid_uuid(invalid_uuid)
-        self.common.assert_error_msg(error, 400, f'parameter \"uuid\" in path has an error: '
+        self.common.assert_error_msg(error, 400, f'parameter \"user_uuid\" in path has an error: '
                                                  f'{invalid} string length is 36')
 
     @allure.title("Get not exist user")

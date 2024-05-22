@@ -24,7 +24,7 @@ class UsersAPI:
             headers=self.headers.basic,
             json_data=json_data
         )
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = UserModel(**response.json())
         return {"model": model, "login_data": json_data}
 
@@ -36,7 +36,7 @@ class UsersAPI:
             headers=self.headers.basic,
             json_data=json_data
         )
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = UserModel(**response.json())
         return model
 
@@ -48,7 +48,7 @@ class UsersAPI:
             headers=self.headers.basic,
             json_data=json_data
         )
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = UserModel(**response.json())
         return model
 
@@ -58,7 +58,7 @@ class UsersAPI:
             url=self.endpoints.get_user_by_id(uuid=uuid),
             headers=self.headers.basic
         )
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = UserModel(**response.json())
         return model
 
@@ -68,7 +68,7 @@ class UsersAPI:
             url=self.endpoints.delete_user_by_id(uuid=uuid),
             headers=self.headers.basic
         )
-        assert response.status_code == 204, response.json()
+        assert response.status_code == 204, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
 
     @allure.step("Get all users")
     def get_all_users(self, offset=0, limit=10):
@@ -77,7 +77,7 @@ class UsersAPI:
             headers=self.headers.basic,
             params=self.params.user_list_params(offset=offset, limit=limit)
         )
-        assert response.status_code == 200, response.json()
+        assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = UsersModel(**response.json())
         return model
 
@@ -85,9 +85,10 @@ class UsersAPI:
     def get_all_users_without_token(self):
         response = super_requests.get(
             url=self.endpoints.get_users_list,
+            headers={"X-Task-Id": "API-2"},
             params=self.params.user_list_params(offset=0, limit=10)
         )
-        assert response.status_code == 401, response.json()
+        assert response.status_code == 401, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
         return model
 
@@ -97,7 +98,7 @@ class UsersAPI:
             url=self.endpoints.get_user_by_id(uuid=uuid),
             headers=self.headers.basic
         )
-        assert response.status_code == 400, response.json()
+        assert response.status_code == 400, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
         return model
 
@@ -107,7 +108,7 @@ class UsersAPI:
             url=self.endpoints.get_user_by_id(uuid=uuid),
             headers=self.headers.basic
         )
-        assert response.status_code == 404, response.json()
+        assert response.status_code == 404, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
         return model
 
@@ -118,7 +119,7 @@ class UsersAPI:
             headers=self.headers.basic,
             json_data=self.payloads.create_exist_user(field, value)
         )
-        assert response.status_code == 409, response.json()
+        assert response.status_code == 409, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
         return model
 
@@ -129,7 +130,7 @@ class UsersAPI:
             headers=self.headers.basic,
             json_data=self.payloads.login_without_field(login_data, field)
         )
-        assert response.status_code == 400, response.json()
+        assert response.status_code == 400, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
         return model
 
@@ -139,6 +140,6 @@ class UsersAPI:
             url=self.endpoints.get_user_by_id(uuid=uuid),
             headers=self.headers.basic
         )
-        assert response.status_code == 404, response.json()
+        assert response.status_code == 404, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
         return model
