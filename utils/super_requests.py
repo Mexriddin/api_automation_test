@@ -38,8 +38,9 @@ class SuperRequests:
         return SuperRequests._send(url, "GET", json_data, headers, cookies, params)
 
     @staticmethod
-    def put(url: str, json_data: dict = None, headers: dict = None, cookies: dict = None, params: dict = None):
-        return SuperRequests._send(url, "PUT", json_data, headers, cookies, params)
+    def put(url: str, json_data: dict = None, headers: dict = None, cookies: dict = None, params: dict = None,
+            files: dict = None):
+        return SuperRequests._send(url, "PUT", json_data, headers, cookies, params, files)
 
     @staticmethod
     def patch(url: str, json_data: dict = None, headers: dict = None, cookies: dict = None, params: dict = None):
@@ -50,7 +51,7 @@ class SuperRequests:
         return SuperRequests._send(url, "DELETE", json_data, headers, cookies, params)
 
     @staticmethod
-    def _send(url: str, method: str, json_data: dict, headers: dict, cookies: dict, params: dict):
+    def _send(url: str, method: str, json_data: dict, headers: dict, cookies: dict, params: dict, files: dict):
         with allure.step(f"{method} request to URL: {url}"):
 
             if headers is None:
@@ -59,6 +60,8 @@ class SuperRequests:
                 cookies = {}
             if params is None:
                 params = {}
+            if files is None:
+                files = {}
 
             Attachment.attach_request_body(json_data)
 
@@ -67,7 +70,8 @@ class SuperRequests:
             elif method == "POST":
                 response = requests.post(url, json=json_data, cookies=cookies, headers=headers, params=params)
             elif method == "PUT":
-                response = requests.put(url, json=json_data, cookies=cookies, headers=headers, params=params)
+                response = requests.put(url, json=json_data, cookies=cookies, headers=headers, params=params,
+                                        files=files)
             elif method == "PATCH":
                 response = requests.patch(url, json=json_data, cookies=cookies, headers=headers, params=params)
             elif method == "DELETE":

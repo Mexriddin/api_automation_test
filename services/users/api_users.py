@@ -143,3 +143,15 @@ class UsersAPI:
         assert response.status_code == 404, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
         return model
+
+    @allure.step("Update user's avatar")
+    def update_user_avatar(self, uuid):
+        avatar = self.payloads.users_avatar()
+        response = super_requests.put(
+            url=self.endpoints.update_user_avatar(uuid=uuid),
+            headers=self.headers.basic,
+            files=avatar
+        )
+        assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
+        model = UserModel(**response.json())
+        return model

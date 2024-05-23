@@ -4,12 +4,12 @@ from services.commons.model import Meta
 
 
 
-class GameModel(BaseModel):
-    title: str
+class CategoryModel(BaseModel):
+    name: str
     uuid: str
 
 
-    @field_validator("title", "uuid")
+    @field_validator("name", "uuid")
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")
@@ -17,7 +17,7 @@ class GameModel(BaseModel):
             return value
 
 
-class GamesModel(BaseModel):
-    games: List[GameModel]
+class CategoriesModel(BaseModel):
+    categories: List[CategoryModel]
     meta: Meta
 

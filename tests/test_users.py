@@ -42,6 +42,10 @@ class TestUsersPositive(BaseTest):
         user = self.api_users.create_new_user()
         self.api_users.delete_user_by_id(user["model"].uuid)
 
+    @allure.title("Update users avatar")
+    def test_update_avatar(self):
+        user = self.api_users.create_new_user()
+        user = self.api_users.update_user_avatar(user["model"].uuid)
 
 @allure.epic("Administration")
 @allure.feature("Users")

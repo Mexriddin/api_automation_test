@@ -9,3 +9,5 @@ class Endpoints:
     update_user_by_id = lambda self, uuid: f"{HOST}/users/{uuid}"
     delete_user_by_id = lambda self, uuid: f"{HOST}/users/{uuid}"
     get_users_list = f"{HOST}/users"
+    update_user_avatar = lambda self, uuid: f"{HOST}/users/{uuid}/avatar"
+
