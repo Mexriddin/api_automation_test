@@ -36,7 +36,7 @@ class PaymentAPI:
     @allure.step("List all payments for user")
     def get_all_payments_for_user(self, user_uuid):
         response = super_requests.get(
-            url=self.endpoints.list_orders_all_payments(user_uuid=user_uuid),
+            url=self.endpoints.list_all_payments_for_order(user_uuid=user_uuid),
             headers=self.headers.basic,
             params=self.params.payment_list_params(offset=0, limit=10)
         )

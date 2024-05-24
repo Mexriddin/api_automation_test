@@ -6,7 +6,7 @@ from config.base_test import BaseTest
 @allure.epic("Carts")
 @allure.feature("Cart management")
 @pytest.mark.positive
-@pytest.mark.categories
+@pytest.mark.carts
 class TestCart(BaseTest):
 
     @allure.title("Get new user cart")

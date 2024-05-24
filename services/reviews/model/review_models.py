@@ -4,17 +4,16 @@ from datetime import datetime
 from services.commons.model import Meta
 
 
-class PaymentModel(BaseModel):
-    order_uuid: str
-    payment_method: str
-    amount: int
-    created_at: datetime
-    status: str
-    updated_at: datetime
+class ReviewModel(BaseModel):
+    body: str
+    score: int
+    title: str
     user_uuid: str
+    created_at: datetime
+    updated_at: datetime
     uuid: str
 
-    @field_validator("order_uuid", "user_uuid", "created_at", "status", "amount", "update_at", "uuid", "payment_method")
+    @field_validator("uuid", "user_uuid", "created_at", "title", "score", "update_at", "body")
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")
@@ -22,9 +21,9 @@ class PaymentModel(BaseModel):
             return value
 
 
-class PaymentsModel(BaseModel):
+class ReviewsModel(BaseModel):
     mete: Meta
-    payments: List[PaymentModel]
+    reviews: List[ReviewModel]
 
     @field_validator("payments", "meta")
     def fields_are_not_empty(cls, value):

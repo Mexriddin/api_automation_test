@@ -6,6 +6,7 @@ from services.games.api_games import GameAPI
 from services.carts.api_carts import CartAPI
 from services.orders.api_orders import OrderAPI
 from services.payments.api_payments import PaymentAPI
+from services.reviews.api_reviews import ReviewAPI
 
 
 class BaseTest:
@@ -18,3 +19,4 @@ class BaseTest:
         self.api_carts = CartAPI()
         self.api_orders = OrderAPI()
         self.api_payments = PaymentAPI()
+        self.api_reviews = ReviewAPI()

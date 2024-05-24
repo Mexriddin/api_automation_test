@@ -6,7 +6,7 @@ from config.base_test import BaseTest
 @allure.epic("Orders")
 @allure.feature("Orders management")
 @pytest.mark.positive
-@pytest.mark.categories
+@pytest.mark.orders
 class TestOrder(BaseTest):
     @allure.title("Created order for new user")
     def test_create_order(self):

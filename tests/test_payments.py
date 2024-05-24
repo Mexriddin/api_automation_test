@@ -20,7 +20,7 @@ class TestPayment(BaseTest):
         assert payment.user_uuid == user["model"].uuid
 
     @allure.title("Get a payment")
-    def test_get_order(self):
+    def test_get_payment(self):
         user = self.api_users.create_new_user()
         games = self.api_games.get_list_all_games()
         order = self.api_orders.create_order(user_uuid=user["model"].uuid, game_id=games.games[0].uuid)
@@ -45,7 +45,7 @@ class TestPayment(BaseTest):
 
 
     @allure.title("Delete a payment for new user")
-    def test_delete_order(self):
+    def test_delete_payment(self):
         user = self.api_users.create_new_user()
         games = self.api_games.get_list_all_games()
         order = self.api_orders.create_order(user_uuid=user["model"].uuid, game_id=games.games[0].uuid)
