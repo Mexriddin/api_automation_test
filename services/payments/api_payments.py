@@ -38,7 +38,7 @@ class PaymentAPI:
         response = super_requests.get(
             url=self.endpoints.list_all_payments_for_order(user_uuid=user_uuid),
             headers=self.headers.basic,
-            params=self.params.payment_list_params(offset=0, limit=10)
+            params=self.params.list_params(offset=0, limit=10)
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = PaymentsModel(**response.json())

@@ -20,7 +20,7 @@ class GameAPI:
         response = super_requests.get(
             url=self.endpoints.get_all_games,
             headers=self.headers.basic,
-            params=self.params.game_list_params(offset=offset, limit=limit)
+            params=self.params.list_params(offset=offset, limit=limit)
         )
         assert response.status_code == 200, response.json()
         model = GamesModel(**response.json())
@@ -31,7 +31,10 @@ class GameAPI:
         response = super_requests.get(
             url=self.endpoints.get_search_games,
             headers=self.headers.basic,
-            params=self.params.search_games_params(query=name, offset=offset, limit=limit)
+            params={
+                **self.params.search_games_params(query=name),
+                **self.params.list_params(offset=offset, limit=limit)
+            }
         )
         assert response.status_code == 200, response.json()
         model = GamesModel(**response.json())

@@ -19,7 +19,7 @@ class CategoryAPI:
         response = super_requests.get(
             url=self.endpoints.get_categories_list,
             headers=self.headers.basic,
-            params=self.params.categories_list_params(offset=offset, limit=limit)
+            params=self.params.list_params(offset=offset, limit=limit)
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = CategoriesModel(**response.json())
@@ -30,7 +30,7 @@ class CategoryAPI:
         response = super_requests.get(
             url=self.endpoints.get_games_by_category(category_uuid=category_uuid),
             headers=self.headers.basic,
-            params=self.params.categories_list_params(offset=offset, limit=limit)
+            params=self.params.list_params(offset=offset, limit=limit)
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = GamesModel(**response.json())

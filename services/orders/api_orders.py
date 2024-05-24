@@ -38,7 +38,7 @@ class OrderAPI:
         response = super_requests.get(
             url=self.endpoints.list_orders_for_user(user_uuid=user_uuid),
             headers=self.headers.basic,
-            params=self.params.order_list_params(offset=0, limit=10)
+            params=self.params.list_params(offset=0, limit=10)
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = OrdersModel(**response.json())

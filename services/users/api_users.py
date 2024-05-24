@@ -75,7 +75,7 @@ class UsersAPI:
         response = super_requests.get(
             url=self.endpoints.get_users_list,
             headers=self.headers.basic,
-            params=self.params.user_list_params(offset=offset, limit=limit)
+            params=self.params.list_params(offset=offset, limit=limit)
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = UsersModel(**response.json())
@@ -86,7 +86,7 @@ class UsersAPI:
         response = super_requests.get(
             url=self.endpoints.get_users_list,
             headers={"X-Task-Id": "API-2"},
-            params=self.params.user_list_params(offset=0, limit=10)
+            params=self.params.list_params(offset=0, limit=10)
         )
         assert response.status_code == 401, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())

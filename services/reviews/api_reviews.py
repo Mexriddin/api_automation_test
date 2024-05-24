@@ -39,7 +39,10 @@ class ReviewAPI:
         response = super_requests.get(
             url=self.endpoints.list_all_reviews_for_game(game_uuid=game_uuid),
             headers=self.headers.basic,
-            params=self.params.reviews_list_params(offset=0, limit=10, sort="created_at", order_by="asc")
+            params={
+                **self.params.list_params(offset=0, limit=10),
+                **self.params.reviews_sort_order_params(sort="created_at", order_by="asc")
+            }
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ReviewsModel(**response.json())
