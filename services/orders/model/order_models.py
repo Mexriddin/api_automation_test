@@ -14,7 +14,7 @@ class OrderModel(BaseModel):
     user_uuid: str
     uuid: str
 
-    @field_validator("items", "user_uuid", "created_at", "status", "total_price", "update_at", "uuid")
+    @field_validator("items", "user_uuid", "created_at", "status", "total_price", "updated_at", "uuid")
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")
@@ -26,7 +26,7 @@ class OrdersModel(BaseModel):
     mete: Meta
     orders: List[OrderModel]
 
-    @field_validator("orders", "meta")
+    @field_validator("meta", "orders", check_fields=False)
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")

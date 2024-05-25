@@ -14,7 +14,7 @@ class PaymentModel(BaseModel):
     user_uuid: str
     uuid: str
 
-    @field_validator("order_uuid", "user_uuid", "created_at", "status", "amount", "update_at", "uuid", "payment_method")
+    @field_validator("order_uuid", "user_uuid", "created_at", "status", "amount", "updated_at", "uuid", "payment_method", check_fields=False)
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")
@@ -26,7 +26,7 @@ class PaymentsModel(BaseModel):
     mete: Meta
     payments: List[PaymentModel]
 
-    @field_validator("payments", "meta")
+    @field_validator("payments", "meta", check_fields=False)
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")

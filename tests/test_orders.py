@@ -7,6 +7,7 @@ from config.base_test import BaseTest
 @allure.feature("Orders management")
 @pytest.mark.positive
 @pytest.mark.orders
+@pytest.mark.skip("Does not have premium permissions")
 class TestOrder(BaseTest):
     @allure.title("Created order for new user")
     def test_create_order(self):

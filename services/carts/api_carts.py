@@ -1,7 +1,7 @@
-from services.cart.endpoints import Endpoints
+from services.carts.endpoints import Endpoints
 from config.headers import Headers
-from services.cart.payloads import Payloads
-from services.cart.models.cart_models import CartModel
+from services.carts.payloads import Payloads
+from services.carts.models.cart_models import CartModel
 from utils.super_requests import SuperRequests as super_requests
 import allure
 

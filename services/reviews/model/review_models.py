@@ -13,7 +13,7 @@ class ReviewModel(BaseModel):
     updated_at: datetime
     uuid: str
 
-    @field_validator("uuid", "user_uuid", "created_at", "title", "score", "update_at", "body")
+    @field_validator("uuid", "user_uuid", "created_at", "title", "score", "updated_at", "body")
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")
@@ -25,7 +25,7 @@ class ReviewsModel(BaseModel):
     mete: Meta
     reviews: List[ReviewModel]
 
-    @field_validator("payments", "meta")
+    @field_validator("reviews", "meta", check_fields=False)
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")

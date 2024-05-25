@@ -7,6 +7,7 @@ from config.base_test import BaseTest
 @allure.feature("Everything about categories")
 @pytest.mark.positive
 @pytest.mark.categories
+@pytest.mark.skip("Does not have premium permissions")
 class TestCategories(BaseTest):
 
     @allure.title("List all categories")

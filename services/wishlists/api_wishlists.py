@@ -30,7 +30,7 @@ class WishlistAPI:
             headers=self.headers.basic,
             json_data=self.payloads.item_uuid(item_uuid)
         )
-        assert response.status_code == 204, response.json()
+        assert response.status_code == 200, response.json()
 
     @allure.step("Remove item from user wishlist")
     def remove_item_from_user_wishlist(self, user_uuid, item_uuid):
@@ -39,4 +39,4 @@ class WishlistAPI:
             headers=self.headers.basic,
             json_data=self.payloads.item_uuid(item_uuid)
         )
-        assert response.status_code == 204, response.json()
+        assert response.status_code == 200, response.json()

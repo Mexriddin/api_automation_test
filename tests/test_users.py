@@ -43,6 +43,7 @@ class TestUsersPositive(BaseTest):
         self.api_users.delete_user_by_id(user["model"].uuid)
 
     @allure.title("Update users avatar")
+    @pytest.mark.skip("Does not have premium permissions")
     def test_update_avatar(self):
         user = self.api_users.create_new_user()
         user = self.api_users.update_user_avatar(user["model"].uuid)
@@ -71,7 +72,7 @@ class TestUsersNegative(BaseTest):
         user = self.api_users.create_new_user()["model"]
         self.api_users.delete_user_by_id(user.uuid)
         error = self.api_users.get_not_exist_user(user.uuid)
-        self.common.assert_error_msg(error, 404, f"Could not find user with UUID {user.uuid}")
+        self.common.assert_error_msg(error, 404, f'Could not find user with "uuid": {user.uuid}')
 
 
     @allure.title("Create user with exist {field}")
@@ -79,7 +80,7 @@ class TestUsersNegative(BaseTest):
     def test_create_exist_user(self, field):
         user = self.api_users.create_new_user()
         error = self.api_users.create_user_exist(field, user["login_data"][field])
-        self.common.assert_error_msg(error, 409, f"User {field} already exists: {user['login_data'][field]}")
+        self.common.assert_error_msg(error, 409, f'User with the following "{field}" already exists: {user['login_data'][field]}')
 
     @allure.title("Login without field: {field}")
     @pytest.mark.parametrize("field", ["email", "password"])
@@ -93,4 +94,4 @@ class TestUsersNegative(BaseTest):
         user = self.api_users.create_new_user()
         self.api_users.delete_user_by_id(user['model'].uuid)
         error = self.api_users.delete_not_exist_user(user['model'].uuid)
-        self.common.assert_error_msg(error, 404, f"Could not find user with UUID {user['model'].uuid}")
+        self.common.assert_error_msg(error, 404, f'Could not find user with "uuid": {user["model"].uuid}')

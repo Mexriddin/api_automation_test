@@ -2,4 +2,7 @@ from services.commons.params import BaseParams
 
 
 class Params(BaseParams):
-    pass
+    keep_payments = lambda self, keep: {"keep_payments": True} if keep == True else {"keep_payments": False}
+
+
+

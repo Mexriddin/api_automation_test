@@ -29,7 +29,8 @@ class OrderAPI:
     def delete_order(self, order_uuid):
         response = super_requests.delete(
             url=self.endpoints.delete_order(order_uuid=order_uuid),
-            headers=self.headers.basic
+            headers=self.headers.basic,
+            params=self.params.keep_payments(False)
         )
         assert response.status_code == 204, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
 

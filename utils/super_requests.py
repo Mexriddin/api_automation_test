@@ -30,8 +30,9 @@ class Attachment:
 
 class SuperRequests:
     @staticmethod
-    def post(url: str, json_data: dict = None, headers: dict = None, cookies: dict = None, params: dict = None):
-        return SuperRequests._send(url, "POST", json_data, headers, cookies, params)
+    def post(url: str, json_data: dict = None, headers: dict = None, cookies: dict = None, params: dict = None,
+             files: dict = None):
+        return SuperRequests._send(url, "POST", json_data, headers, cookies, params, files)
 
     @staticmethod
     def get(url: str, json_data: dict = None, headers: dict = None, cookies: dict = None, params: dict = None):
@@ -51,7 +52,7 @@ class SuperRequests:
         return SuperRequests._send(url, "DELETE", json_data, headers, cookies, params)
 
     @staticmethod
-    def _send(url: str, method: str, json_data: dict, headers: dict, cookies: dict, params: dict, files: dict):
+    def _send(url: str, method: str, json_data: dict, headers: dict, cookies: dict, params: dict, files: dict = None):
         with allure.step(f"{method} request to URL: {url}"):
 
             if headers is None:

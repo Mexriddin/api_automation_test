@@ -7,6 +7,7 @@ from config.base_test import BaseTest
 @allure.feature("Payment management")
 @pytest.mark.positive
 @pytest.mark.categories
+@pytest.mark.skip("Does not have premium permissions")
 class TestPayment(BaseTest):
     @allure.title("Created a new payment")
     def test_create_payment(self):

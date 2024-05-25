@@ -7,6 +7,7 @@ from config.base_test import BaseTest
 @allure.feature("Reviews management")
 @pytest.mark.positive
 @pytest.mark.reviews
+@pytest.mark.skip("Does not have premium permissions")
 class TestReview(BaseTest):
     @allure.title("Created a new review")
     def test_create_review(self):

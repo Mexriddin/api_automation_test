@@ -7,6 +7,7 @@ from config.base_test import BaseTest
 @allure.feature("Cart management")
 @pytest.mark.positive
 @pytest.mark.carts
+@pytest.mark.skip("Does not have premium permissions")
 class TestCart(BaseTest):
 
     @allure.title("Get new user cart")
@@ -41,4 +42,3 @@ class TestCart(BaseTest):
         empty_cart = self.api_carts.clear_user_cart(user_uuid=cart.user_uuid)
         assert empty_cart.items.count() == 0
         assert empty_cart.total_quantity == 0
-
