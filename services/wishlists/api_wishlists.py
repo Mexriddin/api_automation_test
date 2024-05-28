@@ -24,19 +24,19 @@ class WishlistAPI:
         return model
 
     @allure.step("Add item to user wishlist")
-    def add_item_to_user_wishlist(self, user_uuid, item_uuid):
+    def add_item_to_user_wishlist(self, user_uuid, game_uuid):
         response = super_requests.post(
             url=self.endpoints.add_item_to_wishlists(user_uuid),
             headers=self.headers.basic,
-            json_data=self.payloads.item_uuid(item_uuid)
+            json_data=self.payloads.game_uuid(game_uuid)
         )
         assert response.status_code == 200, response.json()
 
     @allure.step("Remove item from user wishlist")
-    def remove_item_from_user_wishlist(self, user_uuid, item_uuid):
+    def remove_item_from_user_wishlist(self, user_uuid, game_uuid):
         response = super_requests.post(
             url=self.endpoints.remove_item_to_wishlists(user_uuid),
             headers=self.headers.basic,
-            json_data=self.payloads.item_uuid(item_uuid)
+            json_data=self.payloads.game_uuid(game_uuid)
         )
         assert response.status_code == 200, response.json()

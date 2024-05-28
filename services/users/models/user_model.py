@@ -4,13 +4,14 @@ from services.commons.model import Meta
 
 
 class UserModel(BaseModel):
+    avatar_url: str
     email: str
     name: str
     nickname: str
     uuid: str
 
 
-    @field_validator("email", "name", "nickname", "uuid")
+    @field_validator("email", "name", "nickname", "uuid", "avatar_url")
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")

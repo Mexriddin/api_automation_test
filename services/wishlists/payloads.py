@@ -5,4 +5,4 @@ fake = Faker()
 
 class Payloads:
 
-    item_uuid = lambda self, uuid: {"item_uuid": uuid}
+    game_uuid = lambda self, uuid: {"item_uuid": uuid}

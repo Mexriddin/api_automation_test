@@ -20,7 +20,6 @@ class TestGames(BaseTest):
         assert games.games[0].title == "Atomic Heart"
 
     @allure.title("Get a game")
-    def test_get_game_by_uuid(self):
-        games = self.api_games.get_list_all_games()
-        game = self.api_games.get_game_by_uuid(games.games[0].uuid)
-        assert game.uuid == games.games[0].uuid
+    def test_get_game_by_uuid(self, game):
+        game = self.api_games.get_game_by_uuid(game.uuid)
+        assert game.uuid == game.uuid

@@ -21,32 +21,29 @@ class TestUsersPositive(BaseTest):
         assert len(users.users) == 5
 
     @allure.title("Create a new user")
-    def test_create_user(self):
-        user = self.api_users.create_new_user()
+    def test_create_user(self, user):
         self.api_users.get_user_by_id(user["model"].uuid)
 
     @allure.title("Login a new user")
-    def test_login_user(self):
-        user = self.api_users.create_new_user()
+    def test_login_user(self, user):
         login_user = self.api_users.login_user(user["login_data"]["email"], user["login_data"]["password"])
         assert user["model"] == login_user
 
     @allure.title("Update new user")
-    def test_update_user(self):
-        user = self.api_users.create_new_user()
+    def test_update_user(self, user):
         updated_user = self.api_users.update_user_by_id(user["model"].uuid)
         assert updated_user.nickname != user["model"].nickname
 
     @allure.title("Delete new user")
-    def test_delete_user(self):
-        user = self.api_users.create_new_user()
+    def test_delete_user(self, user):
         self.api_users.delete_user_by_id(user["model"].uuid)
 
     @allure.title("Update users avatar")
     @pytest.mark.skip("Does not have premium permissions")
-    def test_update_avatar(self):
-        user = self.api_users.create_new_user()
+    def test_update_avatar(self, user):
         user = self.api_users.update_user_avatar(user["model"].uuid)
+        assert user["model"].avatar is not None
+
 
 @allure.epic("Administration")
 @allure.feature("Users")
@@ -68,30 +65,26 @@ class TestUsersNegative(BaseTest):
                                                  f'{invalid} string length is 36')
 
     @allure.title("Get not exist user")
-    def test_get_not_exist_user(self):
-        user = self.api_users.create_new_user()["model"]
-        self.api_users.delete_user_by_id(user.uuid)
-        error = self.api_users.get_not_exist_user(user.uuid)
-        self.common.assert_error_msg(error, 404, f'Could not find user with "uuid": {user.uuid}')
-
+    def test_get_not_exist_user(self, user):
+        self.api_users.delete_user_by_id(user["model"].uuid)
+        error = self.api_users.get_not_exist_user(user["model"].uuid)
+        self.common.assert_error_msg(error, 404, f'Could not find user with "uuid": {user["model"].uuid}')
 
     @allure.title("Create user with exist {field}")
     @pytest.mark.parametrize("field", ["email", "nickname"])
-    def test_create_exist_user(self, field):
-        user = self.api_users.create_new_user()
+    def test_create_exist_user(self, user, field):
         error = self.api_users.create_user_exist(field, user["login_data"][field])
-        self.common.assert_error_msg(error, 409, f'User with the following "{field}" already exists: {user['login_data'][field]}')
+        self.common.assert_error_msg(error, 409,
+                                     f'User with the following "{field}" already exists: {user['login_data'][field]}')
 
     @allure.title("Login without field: {field}")
     @pytest.mark.parametrize("field", ["email", "password"])
-    def test_login_with_invalid_field(self, field):
-        user = self.api_users.create_new_user()
+    def test_login_with_invalid_field(self, user, field):
         error = self.api_users.login_user_without_filed(user["login_data"], field)
         self.common.assert_error_msg(error, 400, f"Error at \"/{field}\"")
 
     @allure.title("Delete not exist user")
-    def test_delete_not_exist_user(self):
-        user = self.api_users.create_new_user()
+    def test_delete_not_exist_user(self, user):
         self.api_users.delete_user_by_id(user['model'].uuid)
         error = self.api_users.delete_not_exist_user(user['model'].uuid)
         self.common.assert_error_msg(error, 404, f'Could not find user with "uuid": {user["model"].uuid}')
