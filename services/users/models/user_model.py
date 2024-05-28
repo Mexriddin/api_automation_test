@@ -11,7 +11,7 @@ class UserModel(BaseModel):
     uuid: str
 
 
-    @field_validator("email", "name", "nickname", "uuid", "avatar_url")
+    @field_validator("email", "name", "nickname", "uuid")
     def fields_are_not_empty(cls, value):
         if value == "" or value is None:
             raise ValueError("Field must not be empty")

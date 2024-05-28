@@ -13,7 +13,7 @@ class CartAPI:
         self.headers = Headers()
         self.payloads = Payloads()
 
-    @allure.step("Get a cart")
+    @allure.step("Get user's cart by UUID")
     def get_cart(self, user_uuid):
         response = super_requests.get(
             url=self.endpoints.get_cart(user_uuid=user_uuid),
@@ -23,7 +23,7 @@ class CartAPI:
         model = CartModel(**response.json())
         return model
 
-    @allure.step("Add a item to user cart")
+    @allure.step("Add items to user's cart")
     def add_to_cart_item(self, user_uuid, game_uuid, quantity):
         response = super_requests.post(
             url=self.endpoints.add_item_user_cart(user_uuid=user_uuid),
@@ -34,7 +34,7 @@ class CartAPI:
         model = CartModel(**response.json())
         return model
 
-    @allure.step("Change a item to user cart")
+    @allure.step("Change item in user's cart")
     def change_to_cart_item(self, user_uuid, game_uuid, quantity):
         response = super_requests.post(
             url=self.endpoints.change_item_user_cart(user_uuid=user_uuid),
@@ -45,7 +45,7 @@ class CartAPI:
         model = CartModel(**response.json())
         return model
 
-    @allure.step("Clear user cart")
+    @allure.step("Clear user's cart")
     def clear_user_cart(self, user_uuid):
         response = super_requests.post(
             url=self.endpoints.clear_item_user_cart(user_uuid=user_uuid),

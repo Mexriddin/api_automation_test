@@ -14,7 +14,7 @@ class CategoryAPI:
         self.headers = Headers()
         self.params = Params()
 
-    @allure.step("Get all categories")
+    @allure.step("Get all categories ")
     def get_all_categories(self, offset=0, limit=10):
         response = super_requests.get(
             url=self.endpoints.get_categories_list,
@@ -25,7 +25,7 @@ class CategoryAPI:
         model = CategoriesModel(**response.json())
         return model
 
-    @allure.step("Get games by category")
+    @allure.step("Get games by category uuid")
     def get_games_by_category(self, category_uuid, offset=0, limit=10):
         response = super_requests.get(
             url=self.endpoints.get_games_by_category(category_uuid=category_uuid),

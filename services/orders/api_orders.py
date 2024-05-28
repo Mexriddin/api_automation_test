@@ -15,7 +15,7 @@ class OrderAPI:
         self.params = Params()
         self.payloads = Payloads()
 
-    @allure.step("Get an order")
+    @allure.step("Get an order by order uuid")
     def get_order(self, order_uuid):
         response = super_requests.get(
             url=self.endpoints.get_order(order_uuid=order_uuid),
@@ -25,7 +25,7 @@ class OrderAPI:
         model = OrderModel(**response.json())
         return model
 
-    @allure.step("Delete an order")
+    @allure.step("Delete an order by order uuid")
     def delete_order(self, order_uuid):
         response = super_requests.delete(
             url=self.endpoints.delete_order(order_uuid=order_uuid),
@@ -45,7 +45,7 @@ class OrderAPI:
         model = OrdersModel(**response.json())
         return model
 
-    @allure.step("Create a new order")
+    @allure.step("Create a new order for user")
     def create_order(self, user_uuid, game_uuid, quantity):
         response = super_requests.post(
             url=self.endpoints.create_new_order(user_uuid=user_uuid),

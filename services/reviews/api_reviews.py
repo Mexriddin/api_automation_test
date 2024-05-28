@@ -15,7 +15,7 @@ class ReviewAPI:
         self.params = Params()
         self.payloads = Payloads()
 
-    @allure.step("Update a review")
+    @allure.step("Update a review by review UUID")
     def update_review(self, review_uuid):
         response = super_requests.patch(
             url=self.endpoints.update_review(review_uuid=review_uuid),
@@ -26,7 +26,7 @@ class ReviewAPI:
         model = ReviewModel(**response.json())
         return model
 
-    @allure.step("Delete a review")
+    @allure.step("Delete a review by review UUID")
     def delete_payment(self, review_uuid):
         response = super_requests.delete(
             url=self.endpoints.delete_review(review_uuid=review_uuid),
@@ -34,7 +34,7 @@ class ReviewAPI:
         )
         assert response.status_code == 204, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
 
-    @allure.step("List all reviews for games")
+    @allure.step("List all reviews for game")
     def get_all_reviews_for_game(self, game_uuid):
         response = super_requests.get(
             url=self.endpoints.list_all_reviews_for_game(game_uuid=game_uuid),
@@ -48,7 +48,7 @@ class ReviewAPI:
         model = ReviewsModel(**response.json())
         return model
 
-    @allure.step("Create a new review")
+    @allure.step("Create a new review for game")
     def create_review(self, game_uuid, user_uuid):
         response = super_requests.post(
             url=self.endpoints.create_new_review(game_uuid=game_uuid),

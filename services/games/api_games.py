@@ -40,7 +40,7 @@ class GameAPI:
         model = GamesModel(**response.json())
         return model
 
-    @allure.step("Get a game")
+    @allure.step("Get a game by game uuid")
     def get_game_by_uuid(self, uuid):
         response = super_requests.get(
             url=self.endpoints.get_game_by_uuid(uuid),

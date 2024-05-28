@@ -15,7 +15,7 @@ class PaymentAPI:
         self.params = Params()
         self.payloads = Payloads()
 
-    @allure.step("Get a payment")
+    @allure.step("Get a payment by payment UUID")
     def get_payment(self, payment_uuid):
         response = super_requests.get(
             url=self.endpoints.get_payment(payment_uuid=payment_uuid),
@@ -25,7 +25,7 @@ class PaymentAPI:
         model = PaymentModel(**response.json())
         return model
 
-    @allure.step("Delete a payment")
+    @allure.step("Delete a payment by payment UUID")
     def delete_payment(self, payment_uuid):
         response = super_requests.delete(
             url=self.endpoints.delete_payment(payment_uuid=payment_uuid),
@@ -44,7 +44,7 @@ class PaymentAPI:
         model = PaymentsModel(**response.json())
         return model
 
-    @allure.step("Create a new payment")
+    @allure.step("Create a new payment for order")
     def create_payment(self, user_uuid, order_uuid, payment_method):
         response = super_requests.post(
             url=self.endpoints.create_new_payment(user_uuid=user_uuid),
