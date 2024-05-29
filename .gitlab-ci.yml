@@ -41,6 +41,7 @@ pages:
     expire_in: never
     paths:
       - public
+      - allure-report
 
 notification:
   stage: report
