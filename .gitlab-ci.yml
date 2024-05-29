@@ -21,6 +21,12 @@ run_tests:
       - mkdir -p allure-results && cp -r public/history allure-results
     script:
         - docker-compose up api-tests || true
+        - cd allure-results
+        - echo "GIT_BRANCH=${CI_COMMIT_REF_NAME}" >> environment.properties
+        - echo "GIT_COMMIT_ID=${CI_COMMIT_SHA}" >> environment.properties
+        - echo "GIT_COMMIT_MESSAGE=$(git show -s --format=%s ${CI_COMMIT_SHA})" >> environment.properties
+        - echo "GIT_COMMIT_AUTHOR_NAME=$(git show -s --format='%ae' ${CI_COMMIT_SHA})" >> environment.properties
+        - echo "GIT_COMMIT_TIME=$(git show -s --format=%ci ${CI_COMMIT_SHA})" >> environment.properties
     after_script:
         - docker-compose up report
         - ls -la allure-report
