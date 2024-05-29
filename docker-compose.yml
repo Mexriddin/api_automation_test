@@ -13,7 +13,7 @@ services:
     working_dir: /usr/workspace
     volumes:
       - ./:/usr/workspace
-    command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results"
+    command: /bin/sh -c "STAGE=$$STAGE pytest -sv --alluredir=allure-results --clean-alluredir"
 
 
 
