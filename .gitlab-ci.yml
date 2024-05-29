@@ -24,9 +24,9 @@ run_tests:
         - cd allure-results
         - echo "GIT_BRANCH=${CI_COMMIT_REF_NAME}" >> environment.properties
         - echo "GIT_COMMIT_ID=${CI_COMMIT_SHA}" >> environment.properties
-        - echo "GIT_COMMIT_MESSAGE=$(git show -s --format=%s ${CI_COMMIT_SHA})" >> environment.properties
-        - echo "GIT_COMMIT_AUTHOR_NAME=$(git show -s --format='%ae' ${CI_COMMIT_SHA})" >> environment.properties
-        - echo "GIT_COMMIT_TIME=$(git show -s --format=%ci ${CI_COMMIT_SHA})" >> environment.properties
+        - echo "GIT_COMMIT_MESSAGE=${CI_COMMIT_MESSAGE}" >> environment.properties
+        - echo "GIT_COMMIT_AUTHOR_NAME=${CI_COMMIT_AUTHOR}" >> environment.properties
+        - echo "GIT_COMMIT_TIME=${CI_COMMIT_TIMESTAMP}" >> environment.properties
     after_script:
         - docker-compose up report
         - ls -la allure-report
