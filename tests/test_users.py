@@ -75,7 +75,7 @@ class TestUsersNegative(BaseTest):
     def test_create_exist_user(self, user, field):
         error = self.api_users.create_user_exist(field, user["login_data"][field])
         self.common.assert_error_msg(error, 409,
-                                     f'User with the following "{field}" already exists: {user['login_data'][field]}')
+                                     f'User with the following "{field}" already exists: {user["login_data"][field]}')
 
     @allure.title("Login without field: {field}")
     @pytest.mark.parametrize("field", ["email", "password"])
