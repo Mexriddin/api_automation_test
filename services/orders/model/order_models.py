@@ -1,5 +1,5 @@
-from pydantic import BaseModel, field_validator
-from typing import List
+from pydantic import BaseModel, field_validator, Field
+from typing import List, Literal
 from datetime import datetime
 from services.carts.models.cart_models import ItemModel
 from services.commons.model import Meta
@@ -7,12 +7,16 @@ from services.commons.model import Meta
 
 class OrderModel(BaseModel):
     created_at: datetime
-    items: List[ItemModel]
-    status: str
-    total_price: int
+    items: List[ItemModel] = Field(..., max_items=10)
+    status: Literal["open", "pending", "overdue", "canceled", "completed"]
+    total_price: int = Field(..., ge=0)
     updated_at: datetime
-    user_uuid: str
-    uuid: str
+    user_uuid: str = Field(..., min_length=36, max_length=36,
+                           pattern=r'[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89abAB][a-fA-F0-9]{3}-['
+                                   r'a-fA-F0-9]{12}')
+    uuid: str = Field(..., min_length=36, max_length=36,
+                      pattern=r'[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4[a-fA-F0-9]{3}-[89abAB][a-fA-F0-9]{3}-['
+                              r'a-fA-F0-9]{12}')
 
     @field_validator("items", "user_uuid", "created_at", "status", "total_price", "updated_at", "uuid")
     def fields_are_not_empty(cls, value):
