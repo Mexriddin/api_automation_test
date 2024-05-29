@@ -4,10 +4,5 @@
     "environment": "prod",
     "comment": "api tests",
     "reportLink": "https://api-automation-test-maxkamtayev-7d48665c8a4f673e459f827a6883b0f.gitlab.io"
-  },
-  "telegram": {
-    "token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "chat": "-xxxxxxxxx",
-    "replyTo": ""
   }
 }

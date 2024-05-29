@@ -2,7 +2,12 @@ import requests
 import matplotlib.pyplot as plt
 import json
 import argparse
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
+TG_TOKEN = os.getenv('TG_TOKEN')
+CHAT_ID = os.getenv('CHAT_ID')
 
 
 parser = argparse.ArgumentParser(
@@ -52,11 +57,11 @@ with open("../allure-report/widgets/summary.json", "r") as summary_f:
 
     with open(config_file, "r") as config_f:
         config_data = json.load(config_f)
-        token_tg = config_data['telegram']['token']
+        token_tg = TG_TOKEN
         project_name = config_data['base']['project']
         report_link = config_data['base']['reportLink']
         environment = config_data['base']['environment']
-        chat_id = config_data['telegram']['chat']
+        chat_id = CHAT_ID
         duration = duration_readable(summary_data['time']['duration'])
         requests.post(f"https://api.telegram.org/bot{token_tg}/sendPhoto",
                       data={'chat_id': chat_id,
