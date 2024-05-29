@@ -34,7 +34,7 @@ pages:
   needs:
     - run_tests
   script:
-    - mv allure-report public
+    - cp -R allure-report/ public
     - ls -la public
   artifacts:
     when: on_success
