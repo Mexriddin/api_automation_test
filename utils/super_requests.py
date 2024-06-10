@@ -3,7 +3,7 @@ import requests
 import requests_to_curl as curl
 import json
 from allure_commons.types import AttachmentType
-
+from utils.logger import Logger
 
 class Attachment:
     @classmethod
@@ -64,6 +64,7 @@ class SuperRequests:
             if files is None:
                 files = {}
 
+            Logger.add_request(url=url, method=method, data=json_data, headers=headers, cookies=cookies, params=params)
             Attachment.attach_request_body(json_data)
 
             if method == "GET":
@@ -80,6 +81,7 @@ class SuperRequests:
             else:
                 raise Exception(f"Bad HTTP method '{method}' was received")
 
+            Logger.add_response(response=response)
             Attachment.attach_response(response)
             Attachment.attach_curl(response)
 
