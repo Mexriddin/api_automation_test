@@ -80,5 +80,8 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Run notification
+        env:
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
         run: |
           docker-compose up notification

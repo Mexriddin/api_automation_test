@@ -10,7 +10,7 @@ services:
 
 run_tests:
     stage: tests
-#    when: manual
+    when: manual
     image: docker:24.0.5
     before_script:
       - apk add curl jq
