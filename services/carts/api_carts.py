@@ -2,7 +2,7 @@ from services.carts.endpoints import Endpoints
 from config.headers import Headers
 from services.carts.payloads import Payloads
 from services.carts.models.cart_models import CartModel
-from utils.super_requests import SuperRequests as super_requests
+from utils.super_requests import SuperRequest as super_requests
 import allure
 
 

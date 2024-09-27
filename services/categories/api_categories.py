@@ -3,7 +3,7 @@ from config.headers import Headers
 from services.categories.params import Params
 from services.categories.models.category_models import CategoryModel, CategoriesModel
 from services.games.models.game_models import GamesModel
-from utils.super_requests import SuperRequests as super_requests
+from utils.super_requests import SuperRequest as super_requests
 import allure
 
 

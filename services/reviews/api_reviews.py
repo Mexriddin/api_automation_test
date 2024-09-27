@@ -3,7 +3,7 @@ from config.headers import Headers
 from services.reviews.payloads import Payloads
 from services.reviews.params import Params
 from services.reviews.model.review_models import ReviewModel, ReviewsModel
-from utils.super_requests import SuperRequests as super_requests
+from utils.super_requests import SuperRequest as super_requests
 import allure
 
 

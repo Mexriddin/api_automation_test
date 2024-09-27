@@ -2,7 +2,7 @@ from services.wishlists.payloads import Payloads
 from services.wishlists.endpoints import Endpoints
 from config.headers import Headers
 from services.wishlists.models.wishlist_model import WishlistsModel
-from utils.super_requests import SuperRequests as super_requests
+from utils.super_requests import SuperRequest as super_requests
 import allure
 
 

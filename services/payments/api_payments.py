@@ -3,7 +3,7 @@ from config.headers import Headers
 from services.payments.payloads import Payloads
 from services.payments.params import Params
 from services.payments.model.payment_models import PaymentModel, PaymentsModel
-from utils.super_requests import SuperRequests as super_requests
+from utils.super_requests import SuperRequest as super_requests
 import allure
 
 

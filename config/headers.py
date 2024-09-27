@@ -5,6 +5,5 @@ class Headers:
 
     basic = {
         "Authorization": f"Bearer {API_TOKEN}",
-        "Accept": "application/json",
-        "X-Task-Id": "API-2"
+        "Accept": "application/json"
     }

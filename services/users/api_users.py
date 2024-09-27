@@ -4,7 +4,7 @@ from services.users.params import Params
 from config.headers import Headers
 from services.users.models.user_model import UserModel, UsersModel
 from services.commons.model import ErrorModel
-from utils.super_requests import SuperRequests as super_requests
+from utils.super_requests import SuperRequest as super_requests
 import allure
 
 
@@ -21,7 +21,7 @@ class UsersAPI:
         json_data = self.payloads.create_new_user()
         response = super_requests.post(
             url=self.endpoints.create_user,
-            headers=self.headers.basic,
+            headers={**self.headers.basic, "X-Task-Id": "API-3"},
             json_data=json_data
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
@@ -45,7 +45,7 @@ class UsersAPI:
         json_data = self.payloads.create_new_user()
         response = super_requests.patch(
             url=self.endpoints.update_user_by_id(uuid=uuid),
-            headers=self.headers.basic,
+            headers={**self.headers.basic, "X-Task-Id": "API-4"},
             json_data=json_data
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
@@ -56,7 +56,7 @@ class UsersAPI:
     def get_user_by_id(self, uuid):
         response = super_requests.get(
             url=self.endpoints.get_user_by_id(uuid=uuid),
-            headers=self.headers.basic
+            headers={**self.headers.basic, "X-Task-Id": "API-3"}
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = UserModel(**response.json())
@@ -66,7 +66,7 @@ class UsersAPI:
     def delete_user_by_id(self, uuid):
         response = super_requests.delete(
             url=self.endpoints.delete_user_by_id(uuid=uuid),
-            headers=self.headers.basic
+            headers={**self.headers.basic, "X-Task-Id": "API-1"}
         )
         assert response.status_code == 204, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
 
@@ -74,7 +74,7 @@ class UsersAPI:
     def get_all_users(self, offset=0, limit=10):
         response = super_requests.get(
             url=self.endpoints.get_users_list,
-            headers=self.headers.basic,
+            headers={**self.headers.basic, "X-Task-Id": "API-1"},
             params=self.params.list_params(offset=offset, limit=limit)
         )
         assert response.status_code == 200, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
@@ -85,7 +85,7 @@ class UsersAPI:
     def get_all_users_without_token(self):
         response = super_requests.get(
             url=self.endpoints.get_users_list,
-            headers={"X-Task-Id": "API-2"},
+            headers={**self.headers.basic, "X-Task-Id": "API-1"},
             params=self.params.list_params(offset=0, limit=10)
         )
         assert response.status_code == 401, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
@@ -96,7 +96,7 @@ class UsersAPI:
     def get_user_by_invalid_uuid(self, uuid):
         response = super_requests.get(
             url=self.endpoints.get_user_by_id(uuid=uuid),
-            headers=self.headers.basic
+            headers={**self.headers.basic, "X-Task-Id": "API-3"}
         )
         assert response.status_code == 400, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
@@ -106,7 +106,7 @@ class UsersAPI:
     def get_not_exist_user(self, uuid):
         response = super_requests.get(
             url=self.endpoints.get_user_by_id(uuid=uuid),
-            headers=self.headers.basic
+            headers={**self.headers.basic, "X-Task-Id": "API-3"}
         )
         assert response.status_code == 404, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())
@@ -116,7 +116,7 @@ class UsersAPI:
     def create_user_exist(self, field, value):
         response = super_requests.post(
             url=self.endpoints.create_user,
-            headers=self.headers.basic,
+            headers={**self.headers.basic, "X-Task-Id": "API-3"},
             json_data=self.payloads.create_exist_user(field, value)
         )
         assert response.status_code == 409, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
@@ -138,7 +138,7 @@ class UsersAPI:
     def delete_not_exist_user(self, uuid):
         response = super_requests.get(
             url=self.endpoints.get_user_by_id(uuid=uuid),
-            headers=self.headers.basic
+            headers={**self.headers.basic, "X-Task-Id": "API-1"}
         )
         assert response.status_code == 404, f"Actual status_code:{response.status_code}\nResponse:{response.json()}"
         model = ErrorModel(**response.json())

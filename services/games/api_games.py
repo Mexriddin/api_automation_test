@@ -3,7 +3,7 @@ from services.games.endpoints import Endpoints
 from config.headers import Headers
 from services.games.params import Params
 from services.games.models.game_models import GameModel, GamesModel
-from utils.super_requests import SuperRequests as super_requests
+from utils.super_requests import SuperRequest as super_requests
 import allure
 
 

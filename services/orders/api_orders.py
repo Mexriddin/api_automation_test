@@ -3,7 +3,7 @@ from config.headers import Headers
 from services.orders.payloads import Payloads
 from services.orders.params import Params
 from services.orders.model.order_models import OrderModel, OrdersModel
-from utils.super_requests import SuperRequests as super_requests
+from utils.super_requests import SuperRequest as super_requests
 import allure
 
 
